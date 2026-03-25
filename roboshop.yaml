@@ -1,5 +1,6 @@
 - name: creating ec2 and route 53 records
   hosts: all
+  connection: local
   vars:
     sg_id: "sg-0e05551e762cffc74"
     ami_id: "ami-0220d79f3f480ecf5"
