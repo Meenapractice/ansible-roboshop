@@ -46,7 +46,7 @@
 
   - name: "Installing dependencies"
     community.general.npm:
-      name: npm
+      path: /app
 
   - name: "Copying the service file"
     ansible.builtin.template:
