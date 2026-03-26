@@ -43,13 +43,15 @@
     ansible.builtin.copy:
       src: target/shipping-1.0.jar
       dest: shipping.jar
-      remote_src: yes
+      remote_src: true
+    args:
+      chdir: /app
 
   - name: "creating service file"
     ansible.builtin.template:
       src: shipping.service
       dest: /etc/systemd/system/shipping.service
-      remote_src: yes
+      remote_src: true
 
   - name: "daemon reload"
     ansible.builtin.systemd_service:
