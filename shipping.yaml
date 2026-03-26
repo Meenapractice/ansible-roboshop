@@ -40,7 +40,7 @@
       chdir: /app
 
   - name: "Changing the name"
-    aansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
+    ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
 
   - name: "creating service file"
     ansible.builtin.template:
