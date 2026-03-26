@@ -65,6 +65,7 @@
       record: "roboshop-{{ env }}.{{ domain_name }}"
       type: A
       ttl: 1
+    loop: "{{ instances }}"
     when:
     - item == "frontend"
     - action == "destroy"
