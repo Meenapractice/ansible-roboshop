@@ -34,7 +34,7 @@
       dest: /app
 
   - name: "Maven clean package"
-    anisble.builtin.command: mvn clean package
+    ansible.builtin.command: mvn clean package
 
   - name: "Changing the name"
     ansible.builtin.copy:
