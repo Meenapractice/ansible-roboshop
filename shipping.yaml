@@ -40,12 +40,7 @@
       chdir: /app
 
   - name: "Changing the name"
-    ansible.builtin.copy:
-      src: target/shipping-1.0.jar
-      dest: shipping.jar
-      remote_src: true
-    args:
-      chdir: /app
+    aansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
 
   - name: "creating service file"
     ansible.builtin.template:
