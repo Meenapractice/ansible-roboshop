@@ -45,6 +45,7 @@
     ansible.builtin.template:
       src: shipping.service
       dest: /etc/systemd/system/shipping.service
+      remote_src: yes
 
   - name: "daemon reload"
     ansible.builtin.systemd_service:
