@@ -32,6 +32,7 @@
     ansible.builtin.unarchive:
       src: /tmp/shipping.zip
       dest: /app
+      remote_src: true
 
   - name: "Maven clean package"
     ansible.builtin.command: mvn clean package
