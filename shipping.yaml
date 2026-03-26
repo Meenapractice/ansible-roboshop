@@ -1,10 +1,13 @@
 - name: "Shipping"
   hosts: shipping
   tasks:
-  - name: "Installing maven"
+  - name: "Installing maven and mysql"
     ansible.builtin.dnf:
-      name: maven
+      name: "{{ item }}"
       state: present
+    loop:
+    - maven
+    - mysql
 
   - name: "Creating user"
     ansible.builtin.user:
@@ -22,4 +25,49 @@
   - name: "Downloading the code"
     ansible.builtin.get_url:
       url: https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip
+      dest: /tmp/shipping.zip
+
+  - name: "Unzip the files"
+    ansible.builtin.unarchieve:
+      src: /tmp/shipping.zip
       dest: /app
+
+  - name: "Maven clean package"
+    anisble.builtin.command: mvn clean package
+
+  - name: "Changing the name"
+    ansible.builtin.copy:
+      src: target/shipping-1.0.jar
+      dest: shipping.jar
+
+  - name: "creating service file"
+    ansible.builtin.template:
+      src: shipping.service
+      dest: /etc/systemd/system/shipping.service
+
+  - name: "daemon reload"
+    ansible.builtin.systemd_service:
+      daemon_reload: true
+
+  - name: "Loading schema"
+    community.mysql.mysql_db:
+      name: "{{ MYSQL_HOST }}"
+      state: import
+      target: "{{ item }}"
+      login_user: root
+      login_password: RoboShop@1
+
+  - name: "Start the service"
+    ansible.builtin.service:
+      name: shipping
+      state: restarted
+      eanbled: yes
+
+  
+
+
+  
+
+  
+
+  
