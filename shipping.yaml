@@ -36,6 +36,8 @@
 
   - name: "Maven clean package"
     ansible.builtin.command: mvn clean package
+    args:
+      chdir: /app
 
   - name: "Changing the name"
     ansible.builtin.copy:
